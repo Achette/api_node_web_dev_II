@@ -34,9 +34,9 @@ app.get("/tasks/:id", (req, res) => {
 
   const hasId = tasks.some((task) => task.id == id);
 
-  !hasId
-    ? res.status(404).send("ERRO! Informe um id válido. Tente novamente")
-    : res.send(tasks[id - 1]);
+  hasId
+    ? res.send(tasks[id - 1])
+    : res.status(404).send("ERRO! Informe um id válido. Tente novamente");
 });
 
 // POST
