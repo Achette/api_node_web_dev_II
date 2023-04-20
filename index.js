@@ -22,3 +22,7 @@ app.use(express.json());
 app.listen(PORT, () => {
   console.log(`O server está ativo na porta ${PORT}`);
 });
+
+app.get("/tasks", (req, res) => {
+    res.send(tasks)
+})
