@@ -55,3 +55,17 @@ app.post("/tasks", (req, res) => {
   tasks.push(newTask);
   res.send(`A task de id ${newTask.id} foi criada com sucesso.`);
 });
+
+// PUT
+app.put("/tasks/:id", (req, res) => {
+  const { id } = req.params;
+
+  const hasId = tasks.some((task) => task.id == id);
+
+  if (!hasId) return res.status(404).send("ERRO! Informe um id válido!");
+
+  tasks[id - 1] = req.body;
+  tasks[id - 1].id = id;
+
+  res.send(`A task de id: ${id} foi alterada com sucesso`);
+});
