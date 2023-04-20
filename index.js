@@ -69,3 +69,15 @@ app.put("/tasks/:id", (req, res) => {
 
   res.send(`A task de id: ${id} foi alterada com sucesso`);
 });
+
+// DELETE
+app.delete("/tasks/:id", (req, res) => {
+  const { id } = req.params;
+
+  const hasId = tasks.some((task) => task.id == id);
+
+  if (!hasId) return res.status(404).send("ERRO! Informe um id válido!");
+
+  tasks.splice(id - 1, 1);
+  res.send(`Task de id ${id} foi deletada com sucesso!`);
+});
