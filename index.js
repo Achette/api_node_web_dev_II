@@ -24,5 +24,22 @@ app.listen(PORT, () => {
 });
 
 app.get("/tasks", (req, res) => {
-    res.send(tasks)
-})
+  res.send(tasks);
+});
+
+app.post("/tasks", (req, res) => {
+
+  if (!req.body.title)
+    return res.status(404).send("ERRO! A task precisa ter um título!");
+
+  newTask = {
+    id: tasks.length + 1,
+    title: req.body.title,
+    description:
+      req.body.description || "Adicione uma descrição utilizando PUT.",
+    completed: req.body.completed || false,
+  };
+
+  tasks.push(newTask);
+  res.send(`A task de id ${newTask.id} foi criada com sucesso.`);
+});
