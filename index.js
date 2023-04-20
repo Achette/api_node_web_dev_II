@@ -23,12 +23,24 @@ app.listen(PORT, () => {
   console.log(`O server está ativo na porta ${PORT}`);
 });
 
+// GET
 app.get("/tasks", (req, res) => {
   res.send(tasks);
 });
 
-app.post("/tasks", (req, res) => {
+// GET BY ID
+app.get("/tasks/:id", (req, res) => {
+  const { id } = req.params;
 
+  const hasId = tasks.some((task) => task.id == id);
+
+  !hasId
+    ? res.status(404).send("ERRO! Informe um id válido. Tente novamente")
+    : res.send(tasks[id - 1]);
+});
+
+// POST
+app.post("/tasks", (req, res) => {
   if (!req.body.title)
     return res.status(404).send("ERRO! A task precisa ter um título!");
 
