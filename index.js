@@ -45,7 +45,7 @@ app.post("/tasks", (req, res) => {
     return res.status(404).send("ERRO! A task precisa ter um título!");
 
   newTask = {
-    id: tasks.length + 1,
+    id: verifyLastId(tasks),
     title: req.body.title,
     description:
       req.body.description || "Adicione uma descrição utilizando PUT.",
@@ -81,3 +81,9 @@ app.delete("/tasks/:id", (req, res) => {
   tasks.splice(id - 1, 1);
   res.send(`Task de id ${id} foi deletada com sucesso!`);
 });
+
+// Função que verifica o último ID para não haver repetições
+const verifyLastId = (tasks) => {
+  const id = parseInt(tasks[tasks.length - 1].id) + 1;
+  return id;
+};
